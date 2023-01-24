@@ -1,0 +1,25 @@
+[{
+    "id": 1,
+    "nombre": "Rosa"
+  },
+  {
+    "id": 2,
+    "nombre": "Verde"
+  },
+  {
+    "id": 3,
+    "nombre": "Naranja"
+  },
+  {
+    "id": 4,
+    "nombre": "Roja"
+  },
+  {
+    "id": 5,
+    "nombre": "Amarilla"
+  },
+  {
+    "id": 6,
+    "nombre": "Azul"
+  }
+]

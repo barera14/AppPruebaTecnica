@@ -1,0 +1,251 @@
+<div class="container-sm">
+    <div class="row justify-content-center align-items-center g-2">
+        <div class="col">
+            <h3>Descripción del Producto</h3>
+        </div>
+    </div>
+    <br>
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" novalidate>
+        <div class="row justify-content-start align-items-start">
+            <div class="col-6">
+                <div class="mb-3">
+                    <label for="IdProducto" class="form-label">ID</label>
+                    <input type="text" readonly
+                        class="form-control" [ngClass]="{'is-invalid':
+                        registrationForm.controls['id'].invalid && clickSubmit}"
+                        name="nameProducto" id="id" formControlName="id"
+                        aria-describedby="IdProducto" placeholder="ID">
+                    <span *ngIf="registrationForm.controls['id'].invalid &&
+                        clickSubmit" style="color:red">Campo Requerido.</span>
+                </div>
+                <div class="mb-3">
+                    <label for="IdNombre" class="form-label">Nombre</label>
+                    <input type="text" [ngClass]="{'is-invalid':
+                        registrationForm.controls['nombre'].invalid &&
+                        clickSubmit}" formControlName="nombre"
+                        class="form-control" name="nombre" id="IdNombre"
+                        aria-describedby="IdNombre" placeholder="Nombre">
+                    <span *ngIf="registrationForm.controls['nombre'].invalid &&
+                        clickSubmit" style="color:red">Campo Requerido.</span>
+                </div>
+                <div class="mb-3">
+                    <label for="IdEspecie" class="form-label">Especie</label>
+                    <input type="text" [ngClass]="{'is-invalid':
+                        registrationForm.controls['especie'].invalid &&
+                        clickSubmit}" formControlName="especie"
+                        class="form-control" name="especie" id="IdEspecie"
+                        aria-describedby="IdEspecie" placeholder="Especie">
+                    <span *ngIf="registrationForm.controls['especie'].invalid &&
+                        clickSubmit" style="color:red">Campo Requerido.</span>
+                </div>
+            </div>
+            <div class="col-6">
+                <img [src]="fileUpload.img ||
+                    '../../assets/Img/ImgProducto.png'"
+                    class="rounded mx-auto d-block" height="60%" width="60%"
+                    alt="Img foto del Producto">
+            </div>
+        </div>
+        <div class="row justify-content-start align-items-start">
+            <div class="col-6"></div>
+            <div class="col-6">
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Subir Archivo</label>
+                    <input class="form-control" (change)="onUploadFile($event)"
+                        type="file" id="formFile" accept="image/png, image/gif,
+                        image/jpeg, image/jpg" [ngClass]="{'is-invalid':
+                        registrationForm.controls['archivo'].invalid &&
+                        clickSubmit}" formControlName="archivo">
+                    <span *ngIf="registrationForm.controls['archivo'].invalid &&
+                        clickSubmit" style="color:red">Campo Requerido.</span>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row justify-content-start align-items-start">
+            <div class="col-3"></div>
+            <div class="col-3 text-center">
+                <button type="button" id="idAddCategoria"
+                    (click)="open(content)" class="btn btn-primary"><i class="fa
+                        fa-plus" aria-hidden="true"></i>&nbsp;Agregar Variedad</button>
+            </div>
+            <div class="col-3"></div>
+            <div class="col-3 text-center">
+                <button type="button" id="idAddGrado"
+                    (click)="openColor(contentColor)" class="btn btn-primary"><i
+                        class="fa fa-plus" aria-hidden="true"></i>&nbsp;Agregar
+                    Grado</button>
+            </div>
+        </div>
+        <br>
+        <div class="row justify-content-start align-items-start">
+            <div class="col-1"></div>
+            <div class="col-4">
+                <div class="table-responsive" *ngIf="ListVariedadSave.length ==
+                    0 ? false : true">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Variedad</th>
+                                <th scope="col">Color</th>
+                                <th scope="col">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of ListVariedadSave; index as
+                                i">
+                                <th scope="col">{{ item.id }}</th>
+                                <th scope="col">{{ item.variedad }}</th>
+                                <th scope="col">{{ item.color }}</th>
+                                <th scope="col"><button type="button"
+                                        (click)="onDeleteVariedad(i)" class="btn
+                                        btn-danger btn-xs"><i class="fa
+                                            fa-trash"></i></button></th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-2"></div>
+            <div class="col-4">
+                <div class="table-responsive" *ngIf="ListGradoSave.length == 0 ?
+                    false : true">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Grado</th>
+                                <th scope="col">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of ListGradoSave; index as i">
+                                <th scope="col">{{ item.id }}</th>
+                                <th scope="col">{{ item.grado }}</th>
+                                <th scope="col"><button type="button"
+                                        (click)="onDeleteGrado(i)" class="btn
+                                        btn-danger btn-xs"><i class="fa
+                                            fa-trash"></i></button></th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-1"></div>
+        </div>
+        <br>
+        <br>
+        <div class="row justify-content-start align-items-start">
+            <div class="col-9"></div>
+            <div class="col-3">
+                <div class="d-grid gap-2">
+                    <button type="submit" id="idSave" class="btn btn-primary"><i class="fa fa-save"></i>&nbsp;Guardar</button>
+                </div>
+            </div>            
+        </div>
+    </form>
+<br>
+    <ngb-toast
+        *ngIf="show"
+        [delay]="5000"
+        class="toast-container position-fixed top-0 end-0 p-1"
+        style="z-index: 1200; margin-top: 40px;margin-right: 30px;"
+        [class]="clases">
+        <div>{{message}}</div>
+    </ngb-toast>
+</div>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Registar Variedad</h4>
+        <button type="button" class="btn-close" aria-label="Close"
+            (click)="d('Cross click')"></button>
+    </div>
+    <form [formGroup]="variedadForm" (ngSubmit)="onAddVariedad()" novalidate>
+        <div class="modal-body">
+            <div class="row justify-content-center align-items-center g-2">
+                <div class="col">
+                    <div class="mb-3">
+                        <label for="variedad" class="form-label">Variedad</label>
+                        <select class="form-select form-select-lg"
+                            name="variedad"
+                            id="IdVariedad" [ngClass]="{'is-invalid':
+                            variedadForm.controls['variedad'].invalid &&
+                            clickSubmitVariedad}" formControlName="variedad">
+                            <option selected value="">Seleccione</option>
+                            <option *ngFor="let item of ListVariedad"
+                                [value]="item.id">{{ item.name }}</option>
+                        </select>
+                        <span *ngIf="variedadForm.controls['variedad'].invalid
+                            &&
+                            clickSubmitVariedad" style="color:red">Campo
+                            Requerido.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center align-items-center g-2">
+                <div class="col">
+                    <div class="mb-3">
+                        <label for="color" class="form-label">Color</label>
+                        <select class="form-select form-select-lg"
+                            name="variedad"
+                            id="IdVariedad" [ngClass]="{'is-invalid':
+                            variedadForm.controls['color'].invalid &&
+                            clickSubmitVariedad}" formControlName="color">
+                            <option selected value="">Seleccione</option>
+                            <option *ngFor="let item of ListColor"
+                                [value]="item.id">{{ item.name }}</option>
+                        </select>
+                        <span *ngIf="variedadForm.controls['color'].invalid &&
+                            clickSubmitVariedad" style="color:red">Campo
+                            Requerido.</span>
+                    </div>
+                </div>
+            </div>
+            <span *ngIf="errorVariedad" style="color:red">No se puede registrar
+                una variedad con el mismo color.</span>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #contentColor let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Registar Grado</h4>
+        <button type="button" class="btn-close" aria-label="Close"
+            (click)="d('Cross click')"></button>
+    </div>
+    <form [formGroup]="gradoForm" (ngSubmit)="onAddGrado()" novalidate>
+        <div class="modal-body">
+            <div class="row justify-content-center align-items-center g-2">
+                <div class="col">
+                    <div class="mb-3">
+                        <label for="grado" class="form-label">Grado</label>
+                        <select class="form-select form-select-lg"
+                            name="variedad"
+                            id="IdVariedad" [ngClass]="{'is-invalid':
+                            gradoForm.controls['grado'].invalid &&
+                            clickSubmitGrado}" formControlName="grado">
+                            <option selected value="">Seleccione</option>
+                            <option *ngFor="let item of ListGrado"
+                                [value]="item.id">{{ item.name }}</option>
+                        </select>
+                        <span *ngIf="gradoForm.controls['grado'].invalid &&
+                            clickSubmitGrado" style="color:red">Campo
+                            Requerido.</span>
+                    </div>
+                </div>
+            </div>
+            <span *ngIf="gradoForm.controls['grado'].invalid &&
+                clickSubmitGrado" style="color:red">El grado seleccionado ya
+                existe registrado.</span>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+    </form>
+</ng-template>

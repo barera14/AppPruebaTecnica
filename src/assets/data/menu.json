@@ -1,0 +1,9 @@
+[{
+    "nombre": "Adicionar Productos",
+    "url": "/Producto"
+  },
+  {
+    "nombre": "Listar Productos",
+    "url": "/ListaProductos"
+  }
+]
